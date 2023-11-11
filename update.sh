@@ -55,8 +55,8 @@ if [ -z "$TBT" ] || ! echo "$TBT" | grep -q "^[A-Za-z0-9:]\+$"; then
     sleep inf
 fi
 
-if [ -z "$TCID" ] || ! echo "$TCID" | grep -q "^[0-9]\+$"; then
-    echo "TCID is unset or invalid, it can consist of numbers 0-9."
+if [ -z "$TCIDs" ] || ! echo "$TCIDs" | grep -q "^[0-9 ]\+$"; then
+    echo "TCIDs is unset or invalid, it can consist of numbers 0-9 and spaces."
     sleep inf
 fi
 
@@ -99,10 +99,14 @@ done
 echo "$message"
 
 
-curl -X POST \
-     -H 'Content-Type: application/json' \
-     -d '{"chat_id": "'"$TCID"'", "text": "'"$message"'", "disable_notification": true}' \
-     https://api.telegram.org/bot"$TBT"/sendMessage
+    for TCID in $(echo "$TCIDs" | tr " " "\n"); do
+
+        curl -X POST \
+         -H 'Content-Type: application/json' \
+         -d '{"chat_id": "'"$TCID"'", "text": "'"$message"'", "disable_notification": true}' \
+        https://api.telegram.org/bot"$TBT"/sendMessage
+
+    done
 
 sleep "$CI"
 done
