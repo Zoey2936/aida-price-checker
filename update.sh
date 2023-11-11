@@ -127,7 +127,8 @@ done
 fi
 
 
-printf "%s" "$message"
+# shellcheck disable=SC2059
+printf "$message"
 
 
     for TCID in $(echo "$TCIDs" | tr " " "\n"); do
