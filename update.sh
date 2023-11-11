@@ -104,10 +104,8 @@ fi
 
 if [ -n "$ACAIIDs" ]; then
 
-    if [ -n "$ACIDs" ]; then
-        message+="\n\nAll inclusive:"
-        export message
-    fi
+message+="\n\nAll inclusive:"
+export message
 
 for ACAIID in $(echo "$ACAIIDs" | tr " " "\n"); do
 if [ "$(curl -s "https://iris.cruise-api.aida.de/cruises/$AID?adults=$AA&juveniles=$AJ&children=$AC&priceModels=VARIOAI%2CPREMIUMAI" -A "$CUA" -H "x-api-key: $AAK" | jq -r '.cabinCategories[] | select(.id == "'"$ACAIID"'") | .available')" = "true" ]; then
