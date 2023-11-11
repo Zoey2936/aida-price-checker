@@ -17,4 +17,4 @@ services:
         - "ACIDs=BV BB BA"                                     # Kabinen IDs im nicht All inclusive Bereich
         - "ACAIIDs=MV MB MA"                                   # Kabinen IDs im All inclusive Bereich
         - "TBT=3567368463:JUG3OCkc35zduH3759lqeJ6KN6R6UFhdie5" # Telegram Bot-Token, ungültiges Beispiel
-        - "TCID=678428904"                                     # Chat-ID des Telegram-Kontos
+        - "TCIDs=678428904"                                     # Chat-ID(s) des/der Telegram-Kontos/Konten (bei mehreren durch Leerzeichen trennen)
