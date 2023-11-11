@@ -76,8 +76,10 @@ $(curl -s "https://iris.cruise-api.aida.de/cruises/$AID" -A "$CUA" -H "x-api-key
 "
 export message
 
+
 if [ -n "$ACIDs" ]; then
 for ACID in $(echo "$ACIDs" | tr " " "\n"); do
+if [ $(curl -s "https://iris.cruise-api.aida.de/cruises/$AID?adults=$AA&juveniles=$AJ&children=$AC&priceModels=VARIOAI%2CPREMIUMAI" -A "$CUA" -H "x-api-key: $AAK" | jq -r '.cabinCategories[] | select(.id == "'"$ACID"'") | .available') = "true" ]; then
 
 message="\
 $message\
@@ -87,24 +89,45 @@ $(curl -s "https://iris.cruise-api.aida.de/cruises/$AID?adults=$AA&juveniles=$AJ
 "
 export message
 
-done
-fi
-
-if [ -n "$ACAIIDs" ]; then
-for ACAIID in $(echo "$ACAIIDs" | tr " " "\n"); do
+elif
 
 message="\
 $message\
-$(curl -s "https://iris.cruise-api.aida.de/cruises/$AID?adults=$AA&juveniles=$AJ&children=$AC&priceModels=VARIOAI%2CPREMIUMAI" -A "$CUA" -H "x-api-key: $AAK" | jq -r '.cabinCategories[] | select(.id == "'"$ACAIID"'") | .priceModel') \
-$(curl -s "https://iris.cruise-api.aida.de/cruises/$AID?adults=$AA&juveniles=$AJ&children=$AC&priceModels=VARIOAI%2CPREMIUMAI" -A "$CUA" -H "x-api-key: $AAK" | jq -r '.cabinCategories[] | select(.id == "'"$ACAIID"'") | .head'): \
-$(curl -s "https://iris.cruise-api.aida.de/cruises/$AID?adults=$AA&juveniles=$AJ&children=$AC&priceModels=VARIOAI%2CPREMIUMAI" -A "$CUA" -H "x-api-key: $AAK" | jq -r '.cabinCategories[] | select(.id == "'"$ACAIID"'") | .price')€ \n\
+Kabinenkategorie $ACID im nicht All inclusive Bereich ist nicht verfügbar. \n\
 "
 export message
 
+fi
 done
 fi
 
-echo "$message"
+
+if [ -n "$ACAIIDs" ]; then
+for ACAIID in $(echo "$ACAIIDs" | tr " " "\n"); do
+if [ $(curl -s "https://iris.cruise-api.aida.de/cruises/$AID?adults=$AA&juveniles=$AJ&children=$AC&priceModels=VARIOAI%2CPREMIUMAI" -A "$CUA" -H "x-api-key: $AAK" | jq -r '.cabinCategories[] | select(.id == "'"$ACAIID"'") | .available') = "true" ]; then
+
+message="\
+$message\
+$(curl -s "https://iris.cruise-api.aida.de/cruises/$AID?adults=$AA&juveniles=$AJ&children=$AC&priceModels=VARIO%2CPREMIUM" -A "$CUA" -H "x-api-key: $AAK" | jq -r '.cabinCategories[] | select(.id == "'"$ACAIID"'") | .priceModel') \
+$(curl -s "https://iris.cruise-api.aida.de/cruises/$AID?adults=$AA&juveniles=$AJ&children=$AC&priceModels=VARIO%2CPREMIUM" -A "$CUA" -H "x-api-key: $AAK" | jq -r '.cabinCategories[] | select(.id == "'"$ACAIID"'") | .head'): \
+$(curl -s "https://iris.cruise-api.aida.de/cruises/$AID?adults=$AA&juveniles=$AJ&children=$AC&priceModels=VARIO%2CPREMIUM" -A "$CUA" -H "x-api-key: $AAK" | jq -r '.cabinCategories[] | select(.id == "'"$ACAIID"'") | .price')€ \n\
+"
+export message
+
+elif
+
+message="\
+$message\
+Kabinenkategorie $ACAIID im All inclusive Bereich ist nicht verfügbar. \n\
+"
+export message
+
+fi
+done
+fi
+
+
+echo -ne "$message"
 
 
     for TCID in $(echo "$TCIDs" | tr " " "\n"); do
