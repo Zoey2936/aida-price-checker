@@ -127,7 +127,7 @@ done
 fi
 
 
-printf "$message"
+printf "%s" "$message"
 
 
     for TCID in $(echo "$TCIDs" | tr " " "\n"); do
