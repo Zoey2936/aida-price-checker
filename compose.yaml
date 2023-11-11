@@ -1,13 +1,21 @@
 version: "3"
 services:
-    ipv64-updater:
-        container_name: ipv64-updater
-        image: zoeyvid/ipv64-updater
+    aida-price-checker:
+        container_name: aida-price-checker
+        image: zoeyvid/aida-price-checker
         restart: always
-        network_mode: host                       # you can use bridge if it support IPv6
+        network_mode: bridge
         environment:
-        - "TZ=Europe/Berlin"                     # your timezone
-        - "DUK=r23jLIKr6IQwrlU6Wcv4ZxrJePxbd57t" # your Domain Update Token (invalid example)
-#        - "UI=5m"                               # intervall to update DDNS
-#        - "IPv4=true"                           # enable/disable IPv4
-#        - "IPv6=true"                           # enable/disable IPv6
+        - "TZ=Europe/Berlin"                     # Zeitzone
+        - "CI=1d" # interval to sent prices
+        - "AID=SO12240702" # ID der AIDA-Reise
+        - "AAK=1QfHZ3LvMQ7cDSL9YFUbOsKzShRPBQDg6re5zeJG" # x-api-key (kann im Netzwerk-Tab von F12 gefunden werden), ungültiges Beispiel
+        - "AA=2" # Anzahl Erwachsene
+        - "AJ=1" # Anzahl Jugendliche
+        - "AC=0" # Anzahl Kinder
+        - "CUA=Firefox" # User-Agent für cURL
+        - "ACIDs=BV BB BA" # Kabien IDs im nicht All inclusive Bereich
+        - "ACAIIDs=MV MB MA" # Kabien IDs im All inclusive Bereich
+        - "TBT=3567368463:JUG3OCkc35zduH3759lqeJ6KN6R6UFhdie5" # Telegram Bot-Token, ungültiges Beispiel
+        - "TCID=678428904" # Chat-ID des Telegram-Kontos
+        
