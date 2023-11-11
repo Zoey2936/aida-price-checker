@@ -6,57 +6,57 @@ if [ -z "$TZ" ] || ! echo "$TZ" | grep -q "^[A-Za-z/]\+$"; then
 fi
 
 if [ -z "$CI" ] ||! echo "$CI" | grep -q "^[0-9]\+[smhd]\?$"; then
-    echo "CI needs to be a number which can be followed by one of the chars s, m, h or d."
+    echo "CI is unset or invaild, it needs to be a number which can be followed by one of the chars s, m, h or d."
     sleep inf
 fi
 
 if [ -z "$AID" ] || ! echo "$AID" | grep -q "^[A-Z0-9]\+$"; then
-    echo "AID is unset or invalid."
+    echo "AID is unset or invalid, it can consist of upper letters A-Z and numbers 0-9."
     sleep inf
 fi
 
 if [ -z "$AAK" ] || ! echo "$AAK" | grep -q "^[A-Za-z0-9]\+$"; then
-    echo "AAK is unset or invalid."
+    echo "AAK is unset or invalid, it can consist of upper letters A-Z, lower letters a-z and numbers 0-9."
     sleep inf
 fi
 
 if [ -z "$AA" ] || ! echo "$AA" | grep -q "^[0-9]\+$"; then
-    echo "AA is unset or invalid."
+    echo "AA is unset or invalid, it can consist of numbers 0-9."
     sleep inf
 fi
 
 if [ -z "$AJ" ] || ! echo "$AJ" | grep -q "^[0-9]\+$"; then
-    echo "AJ is unset or invalid."
+    echo "AJ is unset or invalid, it can consist of numbers 0-9."
     sleep inf
 fi
 
 if [ -z "$AC" ] || ! echo "$AC" | grep -q "^[0-9]\+$"; then
-    echo "AC is unset or invalid."
+    echo "AC is unset or invalid, it can consist of numbers 0-9."
     sleep inf
 fi
 
 if [ -z "$CUA" ] || ! echo "$CUA" | grep -q "^[A-Za-z0-9/().;: -]\+$"; then
-    echo "CUA is unset or invalid."
+    echo "CUA is unset or invalid, it can consist of upper letters A-Z, lower letters a-z, numbers 0-9, /().;:- and spaces."
     sleep inf
 fi
 
 if [ -z "$ACIDs" ] || ! echo "$ACIDs" | grep -q "^[A-Z ]\+$"; then
-    echo "ACIDs is unset or invalid."
+    echo "ACIDs is unset or invalid, it can consist of upper letters A-Z and spaces."
     sleep inf
 fi
 
 if [ -z "$ACAIIDs" ] || ! echo "$ACAIIDs" | grep -q "^[A-Z ]\+$"; then
-    echo "ACAIIDs is unset or invalid."
+    echo "ACAIIDs is unset or invalid, it can consist of upper letters A-Z and spaces."
     sleep inf
 fi
 
 if [ -z "$TBT" ] || ! echo "$TBT" | grep -q "^[A-Za-z0-9:]\+$"; then
-    echo "TBT is unset or invalid."
+    echo "TBT is unset or invalid, it can consist of upper letters A-Z, lower letters a-z numbers 0-9 and colons."
     sleep inf
 fi
 
 if [ -z "$TCID" ] || ! echo "$TCID" | grep -q "^[0-9]\+$"; then
-    echo "TCID is unset or invalid."
+    echo "TCID is unset or invalid, it can consist of numbers 0-9."
     sleep inf
 fi
 
