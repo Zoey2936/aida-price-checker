@@ -14,7 +14,7 @@ services:
         - "AJ=1"                                               # Anzahl Jugendliche
         - "AC=0"                                               # Anzahl Kinder
         - "CUA=Firefox"                                        # User-Agent für cURL
-        - "ACIDs=BV BB BA"                                     # Kabien IDs im nicht All inclusive Bereich
-        - "ACAIIDs=MV MB MA"                                   # Kabien IDs im All inclusive Bereich
+        - "ACIDs=BV BB BA"                                     # Kabinen IDs im nicht All inclusive Bereich
+        - "ACAIIDs=MV MB MA"                                   # Kabinen IDs im All inclusive Bereich
         - "TBT=3567368463:JUG3OCkc35zduH3759lqeJ6KN6R6UFhdie5" # Telegram Bot-Token, ungültiges Beispiel
         - "TCID=678428904"                                     # Chat-ID des Telegram-Kontos
