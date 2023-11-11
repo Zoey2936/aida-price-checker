@@ -93,7 +93,7 @@ else
 
 message="\
 $message\
-Kabinenkategorie $ACID im nicht All inclusive Bereich ist nicht verfügbar. \n\
+Kabinenkategorie $ACID ist im nicht All inclusive Bereich nicht verfügbar. \n\
 "
 export message
 
@@ -118,7 +118,7 @@ else
 
 message="\
 $message\
-Kabinenkategorie $ACAIID im All inclusive Bereich ist nicht verfügbar. \n\
+Kabinenkategorie $ACAIID ist im All inclusive Bereich nicht verfügbar. \n\
 "
 export message
 
