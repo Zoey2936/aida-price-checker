@@ -109,8 +109,8 @@ echo "$message"
 
     for TCID in $(echo "$TCIDs" | tr " " "\n"); do
 
-        curl -X POST \
-         -H 'Content-Type: application/json' \
+        curl -POST \
+         -sH 'Content-Type: application/json' \
          -d '{"chat_id": "'"$TCID"'", "text": "'"$message"'", "disable_notification": true}' \
         https://api.telegram.org/bot"$TBT"/sendMessage
 
