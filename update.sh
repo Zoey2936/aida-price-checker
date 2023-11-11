@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 if [ -z "$TZ" ] || ! echo "$TZ" | grep -q "^[A-Za-z/]\+$"; then
     echo "TZ is unset or invalid."
@@ -72,7 +72,7 @@ for AID in $(echo "$AIDs" | tr " " "\n"); do
 message="\
 $(curl -s "https://iris.cruise-api.aida.de/cruises/$AID" -A "$CUA" -H "x-api-key: $AAK" | jq -r .itinerary[].name) \
 ab \
-$(curl -s "https://iris.cruise-api.aida.de/cruises/$AID" -A "$CUA" -H "x-api-key: $AAK" | jq -r .startDate) \n\
+$(curl -s "https://iris.cruise-api.aida.de/cruises/$AID" -A "$CUA" -H "x-api-key: $AAK" | jq -r .startDate) \
 "
 export message
 
@@ -81,20 +81,17 @@ if [ -n "$ACIDs" ]; then
 for ACID in $(echo "$ACIDs" | tr " " "\n"); do
 if [ "$(curl -s "https://iris.cruise-api.aida.de/cruises/$AID?adults=$AA&juveniles=$AJ&children=$AC&priceModels=VARIOAI%2CPREMIUMAI" -A "$CUA" -H "x-api-key: $AAK" | jq -r '.cabinCategories[] | select(.id == "'"$ACID"'") | .available')" = "true" ]; then
 
-message="\
-$message\
+message+="\n\
 $(curl -s "https://iris.cruise-api.aida.de/cruises/$AID?adults=$AA&juveniles=$AJ&children=$AC&priceModels=VARIO%2CPREMIUM" -A "$CUA" -H "x-api-key: $AAK" | jq -r '.cabinCategories[] | select(.id == "'"$ACID"'") | .priceModel') \
-$(curl -s "https://iris.cruise-api.aida.de/cruises/$AID?adults=$AA&juveniles=$AJ&children=$AC&priceModels=VARIO%2CPREMIUM" -A "$CUA" -H "x-api-key: $AAK" | jq -r '.cabinCategories[] | select(.id == "'"$ACID"'") | .head'): \
-$(curl -s "https://iris.cruise-api.aida.de/cruises/$AID?adults=$AA&juveniles=$AJ&children=$AC&priceModels=VARIO%2CPREMIUM" -A "$CUA" -H "x-api-key: $AAK" | jq -r '.cabinCategories[] | select(.id == "'"$ACID"'") | .price')€ \n\
+$(curl -s "https://iris.cruise-api.aida.de/cruises/$AID?adults=$AA&juveniles=$AJ&children=$AC&priceModels=VARIO%2CPREMIUM" -A "$CUA" -H "x-api-key: $AAK" | jq -r '.cabinCategories[] | select(.id == "'"$ACID"'") | .head') \
+($ACID): \
+$(curl -s "https://iris.cruise-api.aida.de/cruises/$AID?adults=$AA&juveniles=$AJ&children=$AC&priceModels=VARIO%2CPREMIUM" -A "$CUA" -H "x-api-key: $AAK" | jq -r '.cabinCategories[] | select(.id == "'"$ACID"'") | .price')€ \
 "
 export message
 
 else
 
-message="\
-$message\
-Kabinenkategorie $ACID ist im nicht All inclusive Bereich nicht verfügbar. \n\
-"
+message+="\nKabinenkategorie $ACID ist im NICHT All inclusive Bereich nicht verfügbar."
 export message
 
 fi
@@ -106,20 +103,17 @@ if [ -n "$ACAIIDs" ]; then
 for ACAIID in $(echo "$ACAIIDs" | tr " " "\n"); do
 if [ "$(curl -s "https://iris.cruise-api.aida.de/cruises/$AID?adults=$AA&juveniles=$AJ&children=$AC&priceModels=VARIOAI%2CPREMIUMAI" -A "$CUA" -H "x-api-key: $AAK" | jq -r '.cabinCategories[] | select(.id == "'"$ACAIID"'") | .available')" = "true" ]; then
 
-message="\
-$message\
+message+="\n\
 $(curl -s "https://iris.cruise-api.aida.de/cruises/$AID?adults=$AA&juveniles=$AJ&children=$AC&priceModels=VARIO%2CPREMIUM" -A "$CUA" -H "x-api-key: $AAK" | jq -r '.cabinCategories[] | select(.id == "'"$ACAIID"'") | .priceModel') \
 $(curl -s "https://iris.cruise-api.aida.de/cruises/$AID?adults=$AA&juveniles=$AJ&children=$AC&priceModels=VARIO%2CPREMIUM" -A "$CUA" -H "x-api-key: $AAK" | jq -r '.cabinCategories[] | select(.id == "'"$ACAIID"'") | .head'): \
-$(curl -s "https://iris.cruise-api.aida.de/cruises/$AID?adults=$AA&juveniles=$AJ&children=$AC&priceModels=VARIO%2CPREMIUM" -A "$CUA" -H "x-api-key: $AAK" | jq -r '.cabinCategories[] | select(.id == "'"$ACAIID"'") | .price')€ \n\
+($ACAIID): \
+$(curl -s "https://iris.cruise-api.aida.de/cruises/$AID?adults=$AA&juveniles=$AJ&children=$AC&priceModels=VARIO%2CPREMIUM" -A "$CUA" -H "x-api-key: $AAK" | jq -r '.cabinCategories[] | select(.id == "'"$ACAIID"'") | .price')€ \
 "
 export message
 
 else
 
-message="\
-$message\
-Kabinenkategorie $ACAIID ist im All inclusive Bereich nicht verfügbar. \n\
-"
+message+="\nKabinenkategorie $ACAIID ist im All inclusive Bereich nicht verfügbar."
 export message
 
 fi
@@ -127,18 +121,14 @@ done
 fi
 
 
-# shellcheck disable=SC2059
-printf "$message"
-
-
+echo -e "$message"
     for TCID in $(echo "$TCIDs" | tr " " "\n"); do
-
         curl -POST \
          -sH 'Content-Type: application/json' \
          -d '{"chat_id": "'"$TCID"'", "text": "'"$message"'", "disable_notification": true}' \
         https://api.telegram.org/bot"$TBT"/sendMessage
-
     done
+
 done
 sleep "$CI"
 done
