@@ -8,7 +8,7 @@ services:
         environment:
         - "TZ=Europe/Berlin"                                   # Zeitzone
         - "CI=7d"                                              # interval to sent prices
-        - "AID=SO12240702"                                     # ID der AIDA-Reise
+        - "AIDs=SO12240702"                                    # ID(s) der AIDA-Reise (bei mehreren durch Leerzeichen trennen)
         - "AAK=1QfHZ3LvMQ7cDSL9YFUbOsKzShRPBQDg6re5zeJG"       # x-api-key (kann im Netzwerk-Tab von F12 gefunden werden), ungültiges Beispiel
         - "AA=2"                                               # Anzahl Erwachsene
         - "AJ=1"                                               # Anzahl Jugendliche
