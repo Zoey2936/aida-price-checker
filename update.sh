@@ -76,7 +76,7 @@ $(curl -s "https://iris.cruise-api.aida.de/cruises/$AID" -A "$CUA" -H "x-api-key
 bis \
 $(curl -s "https://iris.cruise-api.aida.de/cruises/$AID" -A "$CUA" -H "x-api-key: $AAK" | jq -r .endDate) \
 ($(curl -s "https://iris.cruise-api.aida.de/cruises/$AID" -A "$CUA" -H "x-api-key: $AAK" | jq -r .duration) Tage) \n\
-${AAx} Erwachsen, ${A}Jx Jugendlich und ${AC}x Kind \
+${AA}x Erwachsen, ${AJ}x Jugendlich und ${AC}x Kind \
 "
 export message
 
