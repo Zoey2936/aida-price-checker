@@ -91,7 +91,7 @@ export message
 
 else
 
-message+="\nKabinenkategorie $ACID ist im NICHT All inclusive Bereich nicht verfügbar."
+message+="\nKabinenkategorie $ACID ist nicht verfügbar."
 export message
 
 fi
@@ -113,7 +113,7 @@ export message
 
 else
 
-message+="\nKabinenkategorie $ACAIID ist im All inclusive Bereich nicht verfügbar."
+message+="\nKabinenkategorie $ACAIID ist mit All inclusive nicht verfügbar."
 export message
 
 fi
@@ -121,7 +121,7 @@ done
 fi
 
 
-echo -e "$message"
+#echo -e "$message"
     for TCID in $(echo "$TCIDs" | tr " " "\n"); do
         curl -POST \
          -sH 'Content-Type: application/json' \
