@@ -10,8 +10,8 @@ if [ -z "$CI" ] ||! echo "$CI" | grep -q "^[0-9]\+[smhd]\?$"; then
     sleep inf
 fi
 
-if [ -z "$AID" ] || ! echo "$AID" | grep -q "^[A-Z0-9]\+$"; then
-    echo "AID is unset or invalid, it can consist of upper letters A-Z and numbers 0-9."
+if [ -z "$AIDs" ] || ! echo "$AIDs" | grep -q "^[A-Z0-9 ]\+$"; then
+    echo "AIDs is unset or invalid, it can consist of upper letters A-Z, numbers 0-9 and spaces."
     sleep inf
 fi
 
@@ -62,7 +62,7 @@ fi
 
 
 while true; do
-
+for AID in $(echo "$AIDs" | tr " " "\n"); do
 
 message="\
 $(curl -s "https://iris.cruise-api.aida.de/cruises/$AID" -A "$CUA" -H "x-api-key: $AAK" | jq -r .itinerary[].name) \
@@ -110,6 +110,6 @@ echo "$message"
         https://api.telegram.org/bot"$TBT"/sendMessage
 
     done
-
+done
 sleep "$CI"
 done
