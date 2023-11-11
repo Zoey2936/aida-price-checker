@@ -40,13 +40,18 @@ if [ -z "$CUA" ] || ! echo "$CUA" | grep -q "^[A-Za-z0-9/().;: -]\+$"; then
     sleep inf
 fi
 
-if ! echo "$ACIDs" | grep -q "^[A-Z ]\+$"; then
-    echo "ACIDs is unset or invalid, it can consist of upper letters A-Z and spaces."
+if [ -z "$ACIDs" ] && [ -z "$ACAIIDs" ]; then
+    echo "ACIDs and ACAIIDs are both unset."
     sleep inf
 fi
 
-if ! echo "$ACAIIDs" | grep -q "^[A-Z ]\+$"; then
-    echo "ACAIIDs is unset or invalid, it can consist of upper letters A-Z and spaces."
+if [ -n "$ACIDs" ] && ! echo "$ACIDs" | grep -q "^[A-Z ]\+$"; then
+    echo "ACIDs is invalid, it can consist of upper letters A-Z and spaces."
+    sleep inf
+fi
+
+if [ -n "$ACAIIDs" ] && ! echo "$ACAIIDs" | grep -q "^[A-Z ]\+$"; then
+    echo "ACAIIDs is invalid, it can consist of upper letters A-Z and spaces."
     sleep inf
 fi
 
