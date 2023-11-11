@@ -89,7 +89,7 @@ $(curl -s "https://iris.cruise-api.aida.de/cruises/$AID?adults=$AA&juveniles=$AJ
 "
 export message
 
-elif
+else
 
 message="\
 $message\
@@ -114,7 +114,7 @@ $(curl -s "https://iris.cruise-api.aida.de/cruises/$AID?adults=$AA&juveniles=$AJ
 "
 export message
 
-elif
+else
 
 message="\
 $message\
