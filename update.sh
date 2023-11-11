@@ -40,12 +40,12 @@ if [ -z "$CUA" ] || ! echo "$CUA" | grep -q "^[A-Za-z0-9/().;: -]\+$"; then
     sleep inf
 fi
 
-if [ -z "$ACIDs" ] || ! echo "$ACIDs" | grep -q "^[A-Z ]\+$"; then
+if ! echo "$ACIDs" | grep -q "^[A-Z ]\+$"; then
     echo "ACIDs is unset or invalid, it can consist of upper letters A-Z and spaces."
     sleep inf
 fi
 
-if [ -z "$ACAIIDs" ] || ! echo "$ACAIIDs" | grep -q "^[A-Z ]\+$"; then
+if ! echo "$ACAIIDs" | grep -q "^[A-Z ]\+$"; then
     echo "ACAIIDs is unset or invalid, it can consist of upper letters A-Z and spaces."
     sleep inf
 fi
@@ -71,6 +71,7 @@ $(curl -s "https://iris.cruise-api.aida.de/cruises/$AID" -A "$CUA" -H "x-api-key
 "
 export message
 
+if [ -n "$ACIDs" ]; then
 for ACID in $(echo "$ACIDs" | tr " " "\n"); do
 
 message="\
@@ -82,8 +83,9 @@ $(curl -s "https://iris.cruise-api.aida.de/cruises/$AID?adults=$AA&juveniles=$AJ
 export message
 
 done
+fi
 
-
+if [ -n "$ACAIIDs" ]; then
 for ACAIID in $(echo "$ACAIIDs" | tr " " "\n"); do
 
 message="\
@@ -95,6 +97,7 @@ $(curl -s "https://iris.cruise-api.aida.de/cruises/$AID?adults=$AA&juveniles=$AJ
 export message
 
 done
+fi
 
 echo "$message"
 
