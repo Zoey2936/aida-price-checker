@@ -79,7 +79,7 @@ export message
 
 if [ -n "$ACIDs" ]; then
 for ACID in $(echo "$ACIDs" | tr " " "\n"); do
-if [ $(curl -s "https://iris.cruise-api.aida.de/cruises/$AID?adults=$AA&juveniles=$AJ&children=$AC&priceModels=VARIOAI%2CPREMIUMAI" -A "$CUA" -H "x-api-key: $AAK" | jq -r '.cabinCategories[] | select(.id == "'"$ACID"'") | .available') = "true" ]; then
+if [ "$(curl -s "https://iris.cruise-api.aida.de/cruises/$AID?adults=$AA&juveniles=$AJ&children=$AC&priceModels=VARIOAI%2CPREMIUMAI" -A "$CUA" -H "x-api-key: $AAK" | jq -r '.cabinCategories[] | select(.id == "'"$ACID"'") | .available')" = "true" ]; then
 
 message="\
 $message\
@@ -104,7 +104,7 @@ fi
 
 if [ -n "$ACAIIDs" ]; then
 for ACAIID in $(echo "$ACAIIDs" | tr " " "\n"); do
-if [ $(curl -s "https://iris.cruise-api.aida.de/cruises/$AID?adults=$AA&juveniles=$AJ&children=$AC&priceModels=VARIOAI%2CPREMIUMAI" -A "$CUA" -H "x-api-key: $AAK" | jq -r '.cabinCategories[] | select(.id == "'"$ACAIID"'") | .available') = "true" ]; then
+if [ "$(curl -s "https://iris.cruise-api.aida.de/cruises/$AID?adults=$AA&juveniles=$AJ&children=$AC&priceModels=VARIOAI%2CPREMIUMAI" -A "$CUA" -H "x-api-key: $AAK" | jq -r '.cabinCategories[] | select(.id == "'"$ACAIID"'") | .available')" = "true" ]; then
 
 message="\
 $message\
@@ -127,7 +127,7 @@ done
 fi
 
 
-echo -ne "$message"
+printf "$message"
 
 
     for TCID in $(echo "$TCIDs" | tr " " "\n"); do
