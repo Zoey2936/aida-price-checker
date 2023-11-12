@@ -83,7 +83,7 @@ export message
 
 if [ -n "$ACIDs" ]; then
 
-message+="\n\nohne All inclusive:"
+message="${message}\n\nohne All inclusive:"
 
 for ACID in $(echo "$ACIDs" | tr " " "\n"); do
 if [ "$(curl -s "https://iris.cruise-api.aida.de/cruises/$AID?adults=$AA&juveniles=$AJ&children=$AC&priceModels=VARIO%2CPREMIUM" -A "$CUA" -H "x-api-key: $AAK" | jq -r '.cabinCategories[] | select(.id == "'"$ACID"'") | .available')" = "true" ]; then
@@ -108,7 +108,7 @@ fi
 
 if [ -n "$ACAIIDs" ]; then
 
-message+="\n\nmit All inclusive:"
+message="${message}\n\nmit All inclusive:"
 export message
 
 for ACAIID in $(echo "$ACAIIDs" | tr " " "\n"); do
