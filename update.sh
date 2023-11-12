@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 if [ -z "$TZ" ] || ! echo "$TZ" | grep -q "^[A-Za-z/]\+$"; then
     echo "TZ is unset or invalid."
@@ -88,7 +88,7 @@ message+="\n\nohne All inclusive:"
 for ACID in $(echo "$ACIDs" | tr " " "\n"); do
 if [ "$(curl -s "https://iris.cruise-api.aida.de/cruises/$AID?adults=$AA&juveniles=$AJ&children=$AC&priceModels=VARIO%2CPREMIUM" -A "$CUA" -H "x-api-key: $AAK" | jq -r '.cabinCategories[] | select(.id == "'"$ACID"'") | .available')" = "true" ]; then
 
-message+="\n\
+message="${message}\n\
 $(curl -s "https://iris.cruise-api.aida.de/cruises/$AID?adults=$AA&juveniles=$AJ&children=$AC&priceModels=VARIO%2CPREMIUM" -A "$CUA" -H "x-api-key: $AAK" | jq -r '.cabinCategories[] | select(.id == "'"$ACID"'") | .priceModel') \
 $(curl -s "https://iris.cruise-api.aida.de/cruises/$AID?adults=$AA&juveniles=$AJ&children=$AC&priceModels=VARIO%2CPREMIUM" -A "$CUA" -H "x-api-key: $AAK" | jq -r '.cabinCategories[] | select(.id == "'"$ACID"'") | .head') \
 ($ACID): \
@@ -98,7 +98,7 @@ export message
 
 else
 
-message+="\nKabinenkategorie $ACID ist nicht verfügbar."
+message="${message}\nKabinenkategorie $ACID ist nicht verfügbar."
 export message
 
 fi
@@ -114,7 +114,7 @@ export message
 for ACAIID in $(echo "$ACAIIDs" | tr " " "\n"); do
 if [ "$(curl -s "https://iris.cruise-api.aida.de/cruises/$AID?adults=$AA&juveniles=$AJ&children=$AC&priceModels=VARIOAI%2CPREMIUMAI" -A "$CUA" -H "x-api-key: $AAK" | jq -r '.cabinCategories[] | select(.id == "'"$ACAIID"'") | .available')" = "true" ]; then
 
-message+="\n\
+message="${message}\n\
 $(curl -s "https://iris.cruise-api.aida.de/cruises/$AID?adults=$AA&juveniles=$AJ&children=$AC&priceModels=VARIOAI%2CPREMIUMAI" -A "$CUA" -H "x-api-key: $AAK" | jq -r '.cabinCategories[] | select(.id == "'"$ACAIID"'") | .priceModel') \
 $(curl -s "https://iris.cruise-api.aida.de/cruises/$AID?adults=$AA&juveniles=$AJ&children=$AC&priceModels=VARIOAI%2CPREMIUMAI" -A "$CUA" -H "x-api-key: $AAK" | jq -r '.cabinCategories[] | select(.id == "'"$ACAIID"'") | .head'): \
 ($ACAIID): \
@@ -124,7 +124,7 @@ export message
 
 else
 
-message+="\nKabinenkategorie $ACAIID ist mit All inclusive nicht verfügbar."
+message="${message}\nKabinenkategorie $ACAIID ist mit All inclusive nicht verfügbar."
 export message
 
 fi
