@@ -6,7 +6,7 @@ if [ -z "$TZ" ] || ! echo "$TZ" | grep -q "^[A-Za-z/]\+$"; then
 fi
 
 if [ -z "$CI" ] ||! echo "$CI" | grep -q "^[0-9]\+[smhd]\?$"; then
-    echo "CI is unset or invaild, it needs to be a number which can be followed by one of the chars s, m, h or d."
+    echo "CI is unset or invalid, it needs to be a number which can be followed by one of the chars s, m, h or d."
     sleep inf
 fi
 
