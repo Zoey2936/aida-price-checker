@@ -1,3 +1,4 @@
+# syntax=docker/dockerfile:labs
 FROM alpine:3.19.1
 COPY update.sh /usr/local/bin/update.sh
 RUN apk upgrade --no-cache -a && \
