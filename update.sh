@@ -132,7 +132,7 @@ done
 fi
 
 
-#echo -e "$message"
+echo -e "$message"
     for TCID in $(echo "$TCIDs" | tr " " "\n"); do
         curl -POST \
          -sH 'Content-Type: application/json' \
